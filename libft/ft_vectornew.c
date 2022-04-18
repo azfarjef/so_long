@@ -1,23 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_vectornew.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahmad-j <mahmad-j@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 22:47:01 by mahmad-j          #+#    #+#             */
-/*   Updated: 2022/04/16 18:16:04 by mahmad-j         ###   ########.fr       */
+/*   Created: 2022/04/17 12:51:14 by mahmad-j          #+#    #+#             */
+/*   Updated: 2022/04/18 19:07:51 by mahmad-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+t_vector	ft_vectornew(int x, int y)
 {
-	char	**map;
-	t_map	info;
+	t_vector	position;
 
-	map = parse_arg(ac, av, &info);
-	init_game(map, info);
-	return (0);
+	position.x = x;
+	position.y = y;
+	return (position);
 }

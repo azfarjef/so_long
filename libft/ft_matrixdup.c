@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_matrixdup.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mahmad-j <mahmad-j@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/15 22:47:01 by mahmad-j          #+#    #+#             */
-/*   Updated: 2022/04/16 18:16:04 by mahmad-j         ###   ########.fr       */
+/*   Created: 2022/04/16 17:59:26 by mahmad-j          #+#    #+#             */
+/*   Updated: 2022/04/18 19:06:01 by mahmad-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "libft.h"
 
-int	main(int ac, char **av)
+char	**ft_matrixdup(char **m)
 {
-	char	**map;
-	t_map	info;
+	char	**ret;
+	int		i;
+	int		j;
 
-	map = parse_arg(ac, av, &info);
-	init_game(map, info);
-	return (0);
+	j = 0;
+	i = 0;
+	while (m && m[i])
+		i++;
+	ret = malloc(sizeof(char *) * (i + 1));
+	if (!ret)
+		return (NULL);
+	while (m[j])
+	{
+		ret[j] = ft_strdup(m[j]);
+		if (!ret[j])
+		{
+			ft_freematrix(&ret);
+			return (NULL);
+		}
+		j++;
+	}
+	ret[j] = NULL;
+	return (ret);
 }

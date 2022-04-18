@@ -1,4 +1,9 @@
-SRC		=	main.c map.c parse_arg.c
+KEYCODES =	-D KEY_ESC=65307 -D KEY_W=119 -D KEY_A=97 -D KEY_S=115 -D \
+			KEY_D=100 -D KEY_Q=113
+GRATE	=	-D GAME_RATE=80
+
+SRC		=	main.c map.c parse_arg.c free_pl.c game.c img.c key_hook.c \
+			next_direction.c playerlist.c redraw_pl.c valid_move.c
 SRC_GNL	=	get_next_line.c get_next_line_utils.c
 SRC_DIR	=	source
 OBJ_DIR	= 	obj
@@ -15,14 +20,13 @@ CFLAGS	=	-Wall -Wextra -Werror -g3
 all		:	$(NAME)
 
 $(NAME)	:	mk_dir libft $(OBJ_GNL) $(OBJ)
-			$(CC) $(OBJ) $(OBJ_GNL) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 \
-			-lm -lz -Llibft -lft -o $(NAME)
+			$(CC) $(OBJ) $(OBJ_GNL) -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -Llibft -lft -o $(NAME)
 
 $(OBJ_DIR)/%.o		:	$(SRC_DIR)/%.c
-			$(CC) $(CFLAGS) -I/usr/include -Imlx_linux -O3 -c $< -o $@
+			$(CC) $(CFLAGS) $(KEYCODES) $(GRATE) -I/usr/include -Imlx_linux -O3 -c $< -o $@
 
 $(OBJ_GNL_DIR)/%.o	:	$(GNL_DIR)/%.c
-			$(CC) $(CFLAGS) -c $< -o $@
+			$(CC) $(CFLAGS) $(KEYCODES) $(GRATE) -c $< -o $@
 
 libft	:
 			make -C libft bonus

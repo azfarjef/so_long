@@ -6,7 +6,7 @@
 /*   By: mahmad-j <mahmad-j@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/16 00:08:04 by mahmad-j          #+#    #+#             */
-/*   Updated: 2022/04/16 12:16:24 by mahmad-j         ###   ########.fr       */
+/*   Updated: 2022/04/18 18:57:14 by mahmad-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ void	read_map(int fd, t_err *map_err, t_map *info, char **raw_map)
 {
 	char	*line;
 	char	*prev;
-	
-	
+
 	line = NULL;
 	prev = NULL;
 	while (1)
@@ -26,7 +25,7 @@ void	read_map(int fd, t_err *map_err, t_map *info, char **raw_map)
 		if (!line)
 		{
 			if (!info->col)
-				print_error("Empty map!", &prev);
+				print_error("Empty map!\n", &prev);
 			else
 				check_map_err(prev, map_err, info, 1);
 			free(prev);
@@ -68,16 +67,32 @@ void	check_map_err(char *line, t_err *map_err, t_map *info, int is_last)
 int	print_map_error(t_err *map_err, char **raw_map)
 {
 	if (map_err->row_err)
-		print_error("Map must be rectangular!", raw_map);
+		print_error("Map must be rectangular!\n", raw_map);
 	if (map_err->border_err)
-		print_error("Map must be surrounded by walls!", raw_map);
+		print_error("Map must be surrounded by walls!\n", raw_map);
 	if (map_err->char_err)
-		print_error("Invalid char in map!", raw_map);
+		print_error("Invalid char in map!\n", raw_map);
 	if (map_err->exit_err)
-		print_error("Exit must be at least one!", raw_map);
+		print_error("Exit must be at least one!\n", raw_map);
 	if (map_err->collect_err)
-		print_error("Collectible must be at least one!", raw_map);
+		print_error("Collectible must be at least one!\n", raw_map);
 	if (map_err->player_err)
-		print_error("Player must be at least one!", raw_map);
+		print_error("Player must be at least one!\n", raw_map);
 	return (0);
+}
+
+void	put_map(t_game *g, int x, int y)
+{
+	if (g->map[y][x] == '1')
+		mlx_put_image_to_window(g->id, g->w_id, g->img.wall, \
+			x * SIZE, y * SIZE);
+	if (g->map[y][x] == 'E')
+		mlx_put_image_to_window(g->id, g->w_id, g->img.exit, \
+			x * SIZE, y * SIZE);
+	if (g->map[y][x] == 'C')
+		mlx_put_image_to_window(g->id, g->w_id, g->img.collect, \
+			x * SIZE, y * SIZE);
+	if (g->map[y][x] == '0')
+		mlx_put_image_to_window(g->id, g->w_id, g->img.floor, \
+			x * SIZE, y * SIZE);
 }

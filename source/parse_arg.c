@@ -6,13 +6,13 @@
 /*   By: mahmad-j <mahmad-j@student.42kl.edu.my>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/15 22:59:47 by mahmad-j          #+#    #+#             */
-/*   Updated: 2022/04/16 12:19:39 by mahmad-j         ###   ########.fr       */
+/*   Updated: 2022/04/18 19:00:48 by mahmad-j         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int		print_error(char *msg, char **map)
+int	print_error(char *msg, char **map)
 {
 	if (map)
 		free(*map);
@@ -52,12 +52,12 @@ char	**parse_arg(int ac, char **av, t_map *map)
 	int	fd;
 
 	if (ac != 2)
-		print_error("Argument number must be two!", NULL);
+		print_error("Argument number must be two!\n", NULL);
 	fd = open(av[1], O_RDONLY);
 	if (fd < 0)
-		print_error("Missing file!", NULL);
+		print_error("Missing file!\n", NULL);
 	if (ft_strrncmp(av[1], ".ber", 4))
-		print_error("File must be of '.ber' type!", NULL);
+		print_error("File must be of '.ber' type!\n", NULL);
 	return (parse_map(fd, map));
 }
 
@@ -66,7 +66,7 @@ char	**parse_map(int fd, t_map *info)
 	char	**map;
 	char	*raw_map;
 	t_err	map_err;
-	
+
 	map = NULL;
 	raw_map = NULL;
 	map_err = init_map_err();
@@ -76,6 +76,6 @@ char	**parse_map(int fd, t_map *info)
 	map = ft_split(raw_map, '\n');
 	free(raw_map);
 	if (!map)
-		print_error("Malloc error!", NULL);
+		print_error("Malloc error!\n", NULL);
 	return (map);
 }

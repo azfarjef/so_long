@@ -6,7 +6,7 @@
 #    By: mahmad-j <mahmad-j@student.42kl.edu.my>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/05/19 22:53:01 by mahmad-j          #+#    #+#              #
-#    Updated: 2022/04/16 13:17:35 by mahmad-j         ###   ########.fr        #
+#    Updated: 2022/04/18 00:47:01 by mahmad-j         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,9 @@ SRCSB	=	ft_lstnew.c			\
 			ft_strrncmp.c		\
 			ft_countcharinstr.c	\
 			ft_strjoinfree.c	\
+			ft_freematrix.c		\
+			ft_matrixdup.c		\
+			ft_vectornew.c		\
 			$(SRCS)
 
 NAME	=	libft.a
@@ -78,7 +81,7 @@ $(O)%.o :	%.c libft.h
 $(NAME)	:	$(OBJINDIR)
 			ar -rcs $(NAME) $(OBJINDIR)
 
-.PHONY	:	all clean fclean re
+.PHONY	:	all clean fclean re bonus
 
 all		:	$(NAME)
 
