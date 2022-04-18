@@ -16,6 +16,13 @@ NAME	=	so_long
 
 CC		=	gcc
 CFLAGS	=	-Wall -Wextra -Werror -g3
+LEAKS	=	valgrind --leak-check=full --show-leak-kinds=all -s -q
+
+MAP_SRC	=	1min.ber 2classic.ber 3multiplayer.ber 4normal.ber 5island.ber \
+			inv_border.ber inv_character.ber inv_collectible.ber \
+			inv_empty.ber inv_exit.ber inv_player.ber inv_rectangle.ber \
+			inv_type.txt
+MAPS	=	$(addprefix tests/, $(MAP_SRC))
 
 all		:	$(NAME)
 
@@ -35,6 +42,11 @@ mk_dir :
 			mkdir -p $(OBJ_DIR)
 			mkdir -p $(OBJ_GNL_DIR)
 
+play	:	all
+			for map in $(MAPS) ; do \
+				$(LEAKS) ./$(NAME) $$map ; \
+			done
+
 clean	:
 			make -C libft clean
 			rm -rf $(OBJ_DIR)
@@ -46,4 +58,4 @@ fclean	:	clean
 
 re		:	fclean all
 
-.PHONY	:	all clean fclean re libft mk_dir
+.PHONY	:	all clean fclean re libft mk_dir play
